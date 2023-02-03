@@ -37,6 +37,7 @@ public class BasicSourceCodeReportGenerator {
     private RichTextReport metricsReport = new RichTextReport("Metrics", "Metrics.html");
     private RichTextReport comparisonReport = new RichTextReport("Trend", "Trend.html");
     private RichTextReport controlsReport = new RichTextReport("Goals & Controls", "Controls.html");
+    private RichTextReport vulnerabilitiesReport = new RichTextReport("Vulnerabilities", "Vulnerabilities.html");
     private CodeAnalyzerSettings codeAnalyzerSettings;
     private CodeAnalysisResults codeAnalysisResults;
     private File codeConfigurationFile;
@@ -121,6 +122,10 @@ public class BasicSourceCodeReportGenerator {
             if (codeAnalyzerSettings.isAnalyzeControls()) {
                 reports.add(controlsReport);
             }
+
+            if (codeAnalyzerSettings.isAnalyzeVulnerabilities()) {
+                reports.add(vulnerabilitiesReport);
+            }
         }
 
         return reports;
@@ -142,6 +147,7 @@ public class BasicSourceCodeReportGenerator {
         decorateReport(commitsReport, name, logoLink);
         decorateReport(contributorsReport, name, logoLink);
         decorateReport(controlsReport, name, logoLink);
+        decorateReport(vulnerabilitiesReport, name, logoLink);
         decorateReport(metricsReport, name, logoLink);
         decorateReport(comparisonReport, name, logoLink);
         decorateReport(findingsReport, name, logoLink);
@@ -184,6 +190,12 @@ public class BasicSourceCodeReportGenerator {
             ProcessingStopwatch.start("reporting/file size");
             new FileSizeReportGenerator(codeAnalysisResults).addFileSizeToReport(fileSizeReport);
             ProcessingStopwatch.end("reporting/file size");
+        }
+
+        if (codeAnalyzerSettings.isAnalyzeVulnerabilities()) {
+            ProcessingStopwatch.start("reporting/vulnerabilities");
+            new VulnerabilityReportGenerator(codeAnalysisResults,vulnerabilitiesReport, reportsFolder);
+            ProcessingStopwatch.end("reporting/vulnerabilities");
         }
 
         if (codeAnalyzerSettings.isAnalyzeFileHistory()) {

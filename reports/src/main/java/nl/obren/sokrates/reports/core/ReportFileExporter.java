@@ -380,6 +380,7 @@ public class ReportFileExporter {
         boolean showDuplication = mainExists && !config.getAnalysis().isSkipDuplication();
         boolean showDependencies = mainExists && !config.getAnalysis().isSkipDependencies();
         boolean showTrends = mainExists && config.getTrendAnalysis().getReferenceAnalyses(sokratesConfigFolder).size() > 0;
+        boolean showVulnerabilities = mainExists && !config.getVulnerability().isSkipVulnerabilities();
         boolean showConcerns = mainExists && config.countAllConcernsDefinitions() > 1;
         boolean showControls = mainExists && config.getGoalsAndControls().size() > 0;
         boolean showUnits = mainExists && analysisResults.getUnitsAnalysisResults().getTotalNumberOfUnits() > 0;
@@ -429,6 +430,9 @@ public class ReportFileExporter {
         if (showFindings) {
             list.add(new String[]{"Notes.html", "Notes & Findings", "notes"});
         }
+        if (showVulnerabilities) {
+            list.add(new String[]{"Vulnerabilities.html", "Vulnerabilities", "vulnerabilities"});
+        }
 
         if (!mainExists) {
             list.add(new String[]{"", showDependencies ? "Components and Dependencies" : "Components", "dependencies"});
@@ -462,6 +466,10 @@ public class ReportFileExporter {
         if (!showFindings) {
             list.add(new String[]{"", "Notes & Findings", "notes"});
         }
+        if (!showVulnerabilities) {
+            list.add(new String[]{"", "Vulnerabilities", "vulnerabilities"});
+        }
+
 
         return list;
     }

@@ -48,6 +48,7 @@ public class CodeAnalysisResults {
     private FilesAnalysisResults filesAnalysisResults = new FilesAnalysisResults();
     private FilesHistoryAnalysisResults filesHistoryAnalysisResults = new FilesHistoryAnalysisResults();
     private UnitsAnalysisResults unitsAnalysisResults = new UnitsAnalysisResults();
+    private VulnerabilitiesAnalysisResults vulnerabilitiesAnalysisResults = new VulnerabilitiesAnalysisResults();
 
     private DuplicationAnalysisResults duplicationAnalysisResults = new DuplicationAnalysisResults();
     private ContributorsAnalysisResults contributorsAnalysisResults = new ContributorsAnalysisResults();
@@ -193,6 +194,16 @@ public class CodeAnalysisResults {
 
     public void setUnitsAnalysisResults(UnitsAnalysisResults unitsAnalysisResults) {
         this.unitsAnalysisResults = unitsAnalysisResults;
+    }
+
+    @JsonIgnore
+    public VulnerabilitiesAnalysisResults getVulnerabilitiesAnalysisResults() {
+        return vulnerabilitiesAnalysisResults;
+    }
+    
+    @JsonIgnore
+    public void setVulnerabilitiesAnalysisResults (VulnerabilitiesAnalysisResults vulnerabilitiesAnalysisResults) {
+        this.vulnerabilitiesAnalysisResults = vulnerabilitiesAnalysisResults;
     }
 
     public DuplicationAnalysisResults getDuplicationAnalysisResults() {

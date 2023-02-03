@@ -23,6 +23,7 @@ public class CodeAnalyzerSettings {
     private boolean createMetricsList = true;
     private boolean analyzeControls = true;
     private boolean analyzeFindings = true;
+    private boolean analyzeVulnerabilities = true;
 
     public void selectAll() {
         analyzeFilesInScope = true;
@@ -37,6 +38,7 @@ public class CodeAnalyzerSettings {
         analyzeControls = true;
         analyzeFindings = true;
         analyzeContributors = true;
+        analyzeVulnerabilities = true;
 
         dataOnly = false;
         updateIndex = true;
@@ -55,6 +57,7 @@ public class CodeAnalyzerSettings {
         analyzeControls = false;
         analyzeFindings = false;
         analyzeContributors = false;
+        analyzeVulnerabilities = false;
 
         dataOnly = false;
         updateIndex = false;
@@ -171,4 +174,15 @@ public class CodeAnalyzerSettings {
     public void setAnalyzeContributors(boolean analyzeContributors) {
         this.analyzeContributors = analyzeContributors;
     }
+
+    
+    public boolean isAnalyzeVulnerabilities() {
+        return analyzeVulnerabilities;
+    }
+
+    public void setAnalyzeVulnerabilities(boolean analyzeVulnerabilities) {
+        this.analyzeVulnerabilities = analyzeVulnerabilities;
+    }
+
+ 
 }

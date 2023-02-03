@@ -64,6 +64,9 @@ public class CodeConfiguration {
     // A configuration of trend analysis (comparing multiple analysis snapshots in time)
     private TrendAnalysisConfig trendAnalysis = new TrendAnalysisConfig();
 
+    // A configuration of trend analysis (comparing multiple analysis snapshots in time)
+    private VulnerabilityConfig vulnerability = new VulnerabilityConfig();
+
     // A configuration of commit history input file and analyses
     private FileHistoryAnalysisConfig fileHistoryAnalysis = new FileHistoryAnalysisConfig();
 
@@ -575,6 +578,16 @@ public class CodeConfiguration {
     public void setTrendAnalysis(TrendAnalysisConfig trendAnalysis) {
         if (trendAnalysis != null) {
             this.trendAnalysis = trendAnalysis;
+        }
+    }
+
+    public VulnerabilityConfig getVulnerability() {
+        return vulnerability;
+    }
+
+    public void setVulnerability(VulnerabilityConfig vulnerability) {
+        if (vulnerability != null) {
+            this.vulnerability = vulnerability;
         }
     }
 }

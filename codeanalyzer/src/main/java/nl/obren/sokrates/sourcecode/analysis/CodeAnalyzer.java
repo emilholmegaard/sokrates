@@ -96,11 +96,18 @@ public class CodeAnalyzer {
             ProcessingStopwatch.end("analysis/duplication");
         }
 
+        if (shouldIncludeVulnerabilities()) {
+            ProcessingStopwatch.start("analysis/vulnerabilities");
+            new VulnerabilityAnalyzer(results).analyze(progressFeedback);
+            ProcessingStopwatch.end("analysis/vulnerabilities");
+        }
+
         if (shouldAnalyzeControls()) {
             ProcessingStopwatch.start("analysis/controls");
             new ControlsAnalyzer(results, progressFeedback).analyze();
             ProcessingStopwatch.end("analysis/controls");
         }
+
 
         addTotalAnalysisTimeMetric();
 
@@ -133,6 +140,11 @@ public class CodeAnalyzer {
 
     private boolean shouldAnalyzeControls() {
         return codeAnalyzerSettings.isAnalyzeControls();
+    }
+
+    
+    private boolean shouldIncludeVulnerabilities() {
+        return codeAnalyzerSettings.isAnalyzeVulnerabilities();
     }
 
     private boolean shouldAnalyzeLogicalDecomposition() {
