@@ -9,7 +9,7 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.text.TextFlow;
 import javafx.util.Callback;
-
+import static java.nio.file.FileSystems.getDefault;
 import java.io.File;
 
 public class PathCellRenderer<T> implements Callback<TableColumn<T, String>, TableCell<T, String>> {
@@ -52,6 +52,6 @@ public class PathCellRenderer<T> implements Callback<TableColumn<T, String>, Tab
     }
 
     String getPathPrefix(File file) {
-        return file.getParent() != null ? file.getParent() + "/" : "";
+        return file.getParent() != null ? file.getParent() + getDefault().getSeparator() : "";
     }
 }

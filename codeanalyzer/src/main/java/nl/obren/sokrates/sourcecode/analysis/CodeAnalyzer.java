@@ -98,7 +98,7 @@ public class CodeAnalyzer {
 
         if (shouldIncludeVulnerabilities()) {
             ProcessingStopwatch.start("analysis/vulnerabilities");
-            new VulnerabilityAnalyzer(results).analyze(progressFeedback);
+            new VulnerabilityAnalyzer(results,new File(CodeConfiguration.getAbsoluteSrcRoot(codeConfiguration.getSrcRoot(), codeConfigurationFile))).analyze(progressFeedback);
             ProcessingStopwatch.end("analysis/vulnerabilities");
         }
 

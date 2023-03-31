@@ -426,14 +426,12 @@ public class ReportFileExporter {
         if (showControls) {
             list.add(new String[]{"Controls.html", "Goals & Controls", "goal"});
         }
-
+        if (showVulnerabilities) {
+            list.add(new String[]{"Vulnerabilities.html", "Vulnerabilities", "details"});
+        }
         if (showFindings) {
             list.add(new String[]{"Notes.html", "Notes & Findings", "notes"});
         }
-        if (showVulnerabilities) {
-            list.add(new String[]{"Vulnerabilities.html", "Vulnerabilities", "vulnerabilities"});
-        }
-
         if (!mainExists) {
             list.add(new String[]{"", showDependencies ? "Components and Dependencies" : "Components", "dependencies"});
         }
@@ -462,13 +460,13 @@ public class ReportFileExporter {
         if (!showControls) {
             list.add(new String[]{"", "Goals & Controls", "goal"});
         }
-
+        if (!showVulnerabilities) {
+            list.add(new String[]{"", "Vulnerabilities", "details"});
+        }
         if (!showFindings) {
             list.add(new String[]{"", "Notes & Findings", "notes"});
         }
-        if (!showVulnerabilities) {
-            list.add(new String[]{"", "Vulnerabilities", "vulnerabilities"});
-        }
+       
 
 
         return list;

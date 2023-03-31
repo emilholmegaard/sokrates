@@ -26,8 +26,12 @@ th {
     font-weight: bold;
 }
 
+tr:nth-child(even){
+    background-color: #EEE;
+}
+
 td {
-    background: #FFFFFF;
+    /*background: #FFFFFF;*/
     text-align: left;
 }
 

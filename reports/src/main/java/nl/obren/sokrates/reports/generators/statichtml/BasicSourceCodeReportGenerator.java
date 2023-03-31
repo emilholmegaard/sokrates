@@ -123,7 +123,7 @@ public class BasicSourceCodeReportGenerator {
                 reports.add(controlsReport);
             }
 
-            if (codeAnalyzerSettings.isAnalyzeVulnerabilities()) {
+            if (codeAnalyzerSettings.isAnalyzeVulnerabilities() && codeAnalysisResults.getVulnerabilitiesAnalysisResults().getRoot() != null) {
                 reports.add(vulnerabilitiesReport);
             }
         }
@@ -192,9 +192,9 @@ public class BasicSourceCodeReportGenerator {
             ProcessingStopwatch.end("reporting/file size");
         }
 
-        if (codeAnalyzerSettings.isAnalyzeVulnerabilities()) {
+        if (codeAnalyzerSettings.isAnalyzeVulnerabilities() && codeAnalysisResults.getVulnerabilitiesAnalysisResults().getRoot() != null) {
             ProcessingStopwatch.start("reporting/vulnerabilities");
-            new VulnerabilityReportGenerator(codeAnalysisResults,vulnerabilitiesReport, reportsFolder);
+            new VulnerabilityReportGenerator(codeAnalysisResults,vulnerabilitiesReport).addVulnerabilitiesToReport();
             ProcessingStopwatch.end("reporting/vulnerabilities");
         }
 

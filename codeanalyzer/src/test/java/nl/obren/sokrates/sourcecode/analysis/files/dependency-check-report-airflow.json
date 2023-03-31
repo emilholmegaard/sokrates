@@ -1,0 +1,454 @@
+{
+  "reportSchema" : "1.1",
+  "scanInfo" : {
+    "engineVersion" : "8.1.2",
+    "dataSource" : [ {
+      "name" : "NVD CVE Checked",
+      "timestamp" : "2023-03-06T07:54:54"
+    }, {
+      "name" : "NVD CVE Modified",
+      "timestamp" : "2023-03-06T07:00:02"
+    }, {
+      "name" : "VersionCheckOn",
+      "timestamp" : "2023-02-28T13:54:51"
+    }, {
+      "name" : "kev.checked",
+      "timestamp" : "1678085784"
+    } ],
+    "analysisExceptions" : [ {
+      "exception" : {
+        "message" : "org.owasp.dependencycheck.analyzer.exception.AnalysisException: java.io.IOException: Corrupted TAR archive.",
+        "stackTrace" : [ "org.owasp.dependencycheck.analyzer.ArchiveAnalyzer.extractFiles(ArchiveAnalyzer.java:503)", "org.owasp.dependencycheck.analyzer.ArchiveAnalyzer.extractAndAnalyze(ArchiveAnalyzer.java:295)", "org.owasp.dependencycheck.analyzer.ArchiveAnalyzer.extractAndAnalyze(ArchiveAnalyzer.java:317)", "org.owasp.dependencycheck.analyzer.ArchiveAnalyzer.analyzeDependency(ArchiveAnalyzer.java:277)", "org.owasp.dependencycheck.analyzer.AbstractAnalyzer.analyze(AbstractAnalyzer.java:131)", "org.owasp.dependencycheck.AnalysisTask.call(AnalysisTask.java:88)", "org.owasp.dependencycheck.AnalysisTask.call(AnalysisTask.java:37)", "java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)", "java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)", "java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)", "java.base/java.lang.Thread.run(Thread.java:833)" ],
+        "cause" : {
+          "message" : "org.owasp.dependencycheck.analyzer.exception.ArchiveExtractionException: java.io.IOException: Corrupted TAR archive.",
+          "stackTrace" : [ "org.owasp.dependencycheck.analyzer.ArchiveAnalyzer.extractArchive(ArchiveAnalyzer.java:644)", "org.owasp.dependencycheck.analyzer.ArchiveAnalyzer.extractFiles(ArchiveAnalyzer.java:461)", "org.owasp.dependencycheck.analyzer.ArchiveAnalyzer.extractAndAnalyze(ArchiveAnalyzer.java:295)", "org.owasp.dependencycheck.analyzer.ArchiveAnalyzer.extractAndAnalyze(ArchiveAnalyzer.java:317)", "org.owasp.dependencycheck.analyzer.ArchiveAnalyzer.analyzeDependency(ArchiveAnalyzer.java:277)", "org.owasp.dependencycheck.analyzer.AbstractAnalyzer.analyze(AbstractAnalyzer.java:131)", "org.owasp.dependencycheck.AnalysisTask.call(AnalysisTask.java:88)", "org.owasp.dependencycheck.AnalysisTask.call(AnalysisTask.java:37)", "java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)", "java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)", "java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)", "java.base/java.lang.Thread.run(Thread.java:833)" ],
+          "cause" : {
+            "message" : "java.io.IOException: Corrupted TAR archive.",
+            "stackTrace" : [ "org.apache.commons.compress.archivers.tar.TarArchiveEntry.parseTarHeader(TarArchiveEntry.java:1503)", "org.apache.commons.compress.archivers.tar.TarArchiveEntry.<init>(TarArchiveEntry.java:532)", "org.apache.commons.compress.archivers.tar.TarArchiveInputStream.getNextTarEntry(TarArchiveInputStream.java:379)", "org.apache.commons.compress.archivers.tar.TarArchiveInputStream.getNextEntry(TarArchiveInputStream.java:671)", "org.owasp.dependencycheck.analyzer.ArchiveAnalyzer.extractArchive(ArchiveAnalyzer.java:623)", "org.owasp.dependencycheck.analyzer.ArchiveAnalyzer.extractFiles(ArchiveAnalyzer.java:461)", "org.owasp.dependencycheck.analyzer.ArchiveAnalyzer.extractAndAnalyze(ArchiveAnalyzer.java:295)", "org.owasp.dependencycheck.analyzer.ArchiveAnalyzer.extractAndAnalyze(ArchiveAnalyzer.java:317)", "org.owasp.dependencycheck.analyzer.ArchiveAnalyzer.analyzeDependency(ArchiveAnalyzer.java:277)", "org.owasp.dependencycheck.analyzer.AbstractAnalyzer.analyze(AbstractAnalyzer.java:131)", "org.owasp.dependencycheck.AnalysisTask.call(AnalysisTask.java:88)", "org.owasp.dependencycheck.AnalysisTask.call(AnalysisTask.java:37)", "java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)", "java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)", "java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)", "java.base/java.lang.Thread.run(Thread.java:833)" ],
+            "cause" : {
+              "message" : "java.lang.IllegalArgumentException: At offset 124, 12 byte binary number exceeds maximum signed long value",
+              "stackTrace" : [ "org.apache.commons.compress.archivers.tar.TarUtils.parseBinaryBigInteger(TarUtils.java:226)", "org.apache.commons.compress.archivers.tar.TarUtils.parseOctalOrBinary(TarUtils.java:190)", "org.apache.commons.compress.archivers.tar.TarArchiveEntry.parseTarHeaderUnwrapped(TarArchiveEntry.java:1521)", "org.apache.commons.compress.archivers.tar.TarArchiveEntry.parseTarHeader(TarArchiveEntry.java:1501)", "org.apache.commons.compress.archivers.tar.TarArchiveEntry.<init>(TarArchiveEntry.java:532)", "org.apache.commons.compress.archivers.tar.TarArchiveInputStream.getNextTarEntry(TarArchiveInputStream.java:379)", "org.apache.commons.compress.archivers.tar.TarArchiveInputStream.getNextEntry(TarArchiveInputStream.java:671)", "org.owasp.dependencycheck.analyzer.ArchiveAnalyzer.extractArchive(ArchiveAnalyzer.java:623)", "org.owasp.dependencycheck.analyzer.ArchiveAnalyzer.extractFiles(ArchiveAnalyzer.java:461)", "org.owasp.dependencycheck.analyzer.ArchiveAnalyzer.extractAndAnalyze(ArchiveAnalyzer.java:295)", "org.owasp.dependencycheck.analyzer.ArchiveAnalyzer.extractAndAnalyze(ArchiveAnalyzer.java:317)", "org.owasp.dependencycheck.analyzer.ArchiveAnalyzer.analyzeDependency(ArchiveAnalyzer.java:277)", "org.owasp.dependencycheck.analyzer.AbstractAnalyzer.analyze(AbstractAnalyzer.java:131)", "org.owasp.dependencycheck.AnalysisTask.call(AnalysisTask.java:88)", "org.owasp.dependencycheck.AnalysisTask.call(AnalysisTask.java:37)", "java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)", "java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)", "java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)", "java.base/java.lang.Thread.run(Thread.java:833)" ]
+            }
+          }
+        }
+      }
+    }, {
+      "exception" : {
+        "message" : "org.owasp.dependencycheck.exception.InitializationException: Unable to read yarn audit output.",
+        "stackTrace" : [ "org.owasp.dependencycheck.analyzer.YarnAuditAnalyzer.prepareFileTypeAnalyzer(YarnAuditAnalyzer.java:172)", "org.owasp.dependencycheck.analyzer.AbstractFileTypeAnalyzer.prepareAnalyzer(AbstractFileTypeAnalyzer.java:83)", "org.owasp.dependencycheck.analyzer.AbstractAnalyzer.prepare(AbstractAnalyzer.java:102)", "org.owasp.dependencycheck.Engine.initializeAnalyzer(Engine.java:824)", "org.owasp.dependencycheck.Engine.analyzeDependencies(Engine.java:660)", "org.owasp.dependencycheck.App.runScan(App.java:259)", "org.owasp.dependencycheck.App.run(App.java:191)", "org.owasp.dependencycheck.App.main(App.java:86)" ],
+        "cause" : {
+          "message" : "java.io.IOException: Cannot run program \"yarn\": error=2, No such file or directory",
+          "stackTrace" : [ "java.base/java.lang.ProcessBuilder.start(ProcessBuilder.java:1143)", "java.base/java.lang.ProcessBuilder.start(ProcessBuilder.java:1073)", "org.owasp.dependencycheck.analyzer.YarnAuditAnalyzer.prepareFileTypeAnalyzer(YarnAuditAnalyzer.java:153)", "org.owasp.dependencycheck.analyzer.AbstractFileTypeAnalyzer.prepareAnalyzer(AbstractFileTypeAnalyzer.java:83)", "org.owasp.dependencycheck.analyzer.AbstractAnalyzer.prepare(AbstractAnalyzer.java:102)", "org.owasp.dependencycheck.Engine.initializeAnalyzer(Engine.java:824)", "org.owasp.dependencycheck.Engine.analyzeDependencies(Engine.java:660)", "org.owasp.dependencycheck.App.runScan(App.java:259)", "org.owasp.dependencycheck.App.run(App.java:191)", "org.owasp.dependencycheck.App.main(App.java:86)" ],
+          "cause" : {
+            "message" : "java.io.IOException: error=2, No such file or directory",
+            "stackTrace" : [ "java.base/java.lang.ProcessImpl.forkAndExec(Native Method)", "java.base/java.lang.ProcessImpl.<init>(ProcessImpl.java:314)", "java.base/java.lang.ProcessImpl.start(ProcessImpl.java:244)", "java.base/java.lang.ProcessBuilder.start(ProcessBuilder.java:1110)", "java.base/java.lang.ProcessBuilder.start(ProcessBuilder.java:1073)", "org.owasp.dependencycheck.analyzer.YarnAuditAnalyzer.prepareFileTypeAnalyzer(YarnAuditAnalyzer.java:153)", "org.owasp.dependencycheck.analyzer.AbstractFileTypeAnalyzer.prepareAnalyzer(AbstractFileTypeAnalyzer.java:83)", "org.owasp.dependencycheck.analyzer.AbstractAnalyzer.prepare(AbstractAnalyzer.java:102)", "org.owasp.dependencycheck.Engine.initializeAnalyzer(Engine.java:824)", "org.owasp.dependencycheck.Engine.analyzeDependencies(Engine.java:660)", "org.owasp.dependencycheck.App.runScan(App.java:259)", "org.owasp.dependencycheck.App.run(App.java:191)", "org.owasp.dependencycheck.App.main(App.java:86)" ]
+          }
+        }
+      }
+    } ]
+  },
+  "projectInfo" : {
+    "name" : "",
+    "reportDate" : "2023-03-06T06:58:16.779248703Z",
+    "credits" : {
+      "NVD" : "This report contains data retrieved from the National Vulnerability Database: http://nvd.nist.gov",
+      "CISA" : "This report may contain data retrieved from the CISA Known Exploited Vulnerability Catalog: https://www.cisa.gov/known-exploited-vulnerabilities-catalog",
+      "NPM" : "This report may contain data retrieved from the NPM Public Advisories: https://www.npmjs.com/advisories",
+      "RETIREJS" : "This report may contain data retrieved from the RetireJS community: https://retirejs.github.io/retire.js/",
+      "OSSINDEX" : "This report may contain data retrieved from the Sonatype OSS Index: https://ossindex.sonatype.org"
+    }
+  },
+  "dependencies" : [ {
+    "isVirtual" : false,
+    "fileName" : "California-housing.zip",
+    "filePath" : "/mnt/c/Users/Emhol/OpenSource/Source/airflow/tests/system/providers/google/cloud/vertex_ai/resources/California-housing.zip",
+    "md5" : "3abaa48fe21bb26e925f2f52a4818379",
+    "sha1" : "832d659c354c629c0b864923d572191d615929e1",
+    "sha256" : "90170ee52828ec0da178071add9c92a828bd9ca2f498f15e910da7990c00094b",
+    "evidenceCollected" : {
+      "vendorEvidence" : [ {
+        "type" : "vendor",
+        "confidence" : "HIGH",
+        "source" : "file",
+        "name" : "name",
+        "value" : "California-housing"
+      } ],
+      "productEvidence" : [ {
+        "type" : "product",
+        "confidence" : "HIGH",
+        "source" : "file",
+        "name" : "name",
+        "value" : "California-housing"
+      } ],
+      "versionEvidence" : [ ]
+    }
+  }, {
+    "isVirtual" : false,
+    "fileName" : "California-housing.zip: custom_trainer_script-0.1.tar",
+    "filePath" : "/mnt/c/Users/Emhol/OpenSource/Source/airflow/tests/system/providers/google/cloud/vertex_ai/resources/California-housing.zip/custom_trainer_script-0.1.tar",
+    "md5" : "6c69825818968a75ea62129c0407daf5",
+    "sha1" : "85d155bdad717408455a5c421d8bdbc23c047703",
+    "sha256" : "41a1dfa38961a7c953f5ffdc1b0b920d57d2cd61de536cf09af9bd4f3438f231",
+    "evidenceCollected" : {
+      "vendorEvidence" : [ {
+        "type" : "vendor",
+        "confidence" : "HIGH",
+        "source" : "file",
+        "name" : "name",
+        "value" : "custom_trainer_script"
+      } ],
+      "productEvidence" : [ {
+        "type" : "product",
+        "confidence" : "HIGH",
+        "source" : "file",
+        "name" : "name",
+        "value" : "custom_trainer_script"
+      } ],
+      "versionEvidence" : [ {
+        "type" : "version",
+        "confidence" : "MEDIUM",
+        "source" : "file",
+        "name" : "name",
+        "value" : "custom_trainer_script"
+      }, {
+        "type" : "version",
+        "confidence" : "HIGH",
+        "source" : "file",
+        "name" : "version",
+        "value" : "0.1"
+      } ]
+    }
+  }, {
+    "isVirtual" : false,
+    "fileName" : "alias-rest-types.js",
+    "filePath" : "/mnt/c/Users/Emhol/OpenSource/Source/airflow/airflow/www/alias-rest-types.js",
+    "md5" : "fd490b4b82a0f1c913542580666f8c6c",
+    "sha1" : "c2d131e4a0e0d43f58a935d99ca11995ff37884f",
+    "sha256" : "de33f8d97b696a3c2342b6a2dd9380687713f9287ce9b952f4f47fdaa2b34bce",
+    "evidenceCollected" : {
+      "vendorEvidence" : [ ],
+      "productEvidence" : [ ],
+      "versionEvidence" : [ ]
+    }
+  }, {
+    "isVirtual" : false,
+    "fileName" : "babel.config.js",
+    "filePath" : "/mnt/c/Users/Emhol/OpenSource/Source/airflow/airflow/www/babel.config.js",
+    "md5" : "51a80a1a9b7c74b3da87e136ce430fd3",
+    "sha1" : "9a72af8c2e7e04d58ddf54fd96e23c33b070b18f",
+    "sha256" : "86c201a5ccd24f7c7b570bf7043e2c60bcd6ffb67e40c409e83b68cc3c7a3973",
+    "evidenceCollected" : {
+      "vendorEvidence" : [ ],
+      "productEvidence" : [ ],
+      "versionEvidence" : [ ]
+    }
+  }, {
+    "isVirtual" : false,
+    "fileName" : "calendar.js",
+    "filePath" : "/mnt/c/Users/Emhol/OpenSource/Source/airflow/airflow/www/static/js/calendar.js",
+    "md5" : "cf5876a12b3d2addee4ec9c050c19fe3",
+    "sha1" : "9b19ee77139f16eae3637503c024955f1af3b4c3",
+    "sha256" : "9e5b1d16cdb2f5b3342c7b058498871c6d2cd1bdeb8a0760d8b0dffef9003a52",
+    "evidenceCollected" : {
+      "vendorEvidence" : [ ],
+      "productEvidence" : [ ],
+      "versionEvidence" : [ ]
+    }
+  }, {
+    "isVirtual" : false,
+    "fileName" : "callModal.js",
+    "filePath" : "/mnt/c/Users/Emhol/OpenSource/Source/airflow/airflow/www/static/js/callModal.js",
+    "md5" : "8358346d9e977fd48ebe09e7e25e301c",
+    "sha1" : "34f2f4db0f07aa8ba65c30ae2f85b375abee6b72",
+    "sha256" : "be828b740068383ac18d472bb9252904746c9ef8e569c63d658e55c33aa5b9ae",
+    "evidenceCollected" : {
+      "vendorEvidence" : [ ],
+      "productEvidence" : [ ],
+      "versionEvidence" : [ ]
+    }
+  }, {
+    "isVirtual" : false,
+    "fileName" : "connection_form.js",
+    "filePath" : "/mnt/c/Users/Emhol/OpenSource/Source/airflow/airflow/www/static/js/connection_form.js",
+    "md5" : "a7c18c9811c2f56be8cfed2af09ec02a",
+    "sha1" : "ba6ed24dff744f87a47a58f8bf676853db18cb45",
+    "sha256" : "697f1f968b23fb3e69389c3bd9dcf8ccbcc619777cb0eac53662a499b591132d",
+    "evidenceCollected" : {
+      "vendorEvidence" : [ ],
+      "productEvidence" : [ ],
+      "versionEvidence" : [ ]
+    }
+  }, {
+    "isVirtual" : false,
+    "fileName" : "dag.js",
+    "filePath" : "/mnt/c/Users/Emhol/OpenSource/Source/airflow/airflow/www/static/js/dag.js",
+    "md5" : "41307843904ac296ef0b64b58d720a3c",
+    "sha1" : "13d2dd55c03e38037ad38cf79e35d22d9cff80ed",
+    "sha256" : "d69a9a42a5ccadc8831aa72bd4b93d31234b7c7f66ca7ca6066a86f666aa12a0",
+    "evidenceCollected" : {
+      "vendorEvidence" : [ ],
+      "productEvidence" : [ ],
+      "versionEvidence" : [ ]
+    }
+  }, {
+    "isVirtual" : false,
+    "fileName" : "dag_code.js",
+    "filePath" : "/mnt/c/Users/Emhol/OpenSource/Source/airflow/airflow/www/static/js/dag_code.js",
+    "md5" : "5e3e6446da3ac19bda6a7b591f96b17b",
+    "sha1" : "1083c96d5c354294915087e75c5c242b033c753d",
+    "sha256" : "3e130d0285e5dec559c29db075e6c0176f4b0ca78078990f31173cfb8bf4a7c5",
+    "evidenceCollected" : {
+      "vendorEvidence" : [ ],
+      "productEvidence" : [ ],
+      "versionEvidence" : [ ]
+    }
+  }, {
+    "isVirtual" : false,
+    "fileName" : "dag_dependencies.js",
+    "filePath" : "/mnt/c/Users/Emhol/OpenSource/Source/airflow/airflow/www/static/js/dag_dependencies.js",
+    "md5" : "f83a7ae82feea036d1bbbbffe4cc1c05",
+    "sha1" : "88cb043007cbc2ca8ef72b2425b3de1b606261ad",
+    "sha256" : "4a148d4a9e391d18ab1d63e8f2aee0b6de55f755fc883a6999990c5a89f539a2",
+    "evidenceCollected" : {
+      "vendorEvidence" : [ ],
+      "productEvidence" : [ ],
+      "versionEvidence" : [ ]
+    }
+  }, {
+    "isVirtual" : false,
+    "fileName" : "dags.js",
+    "filePath" : "/mnt/c/Users/Emhol/OpenSource/Source/airflow/airflow/www/static/js/dags.js",
+    "md5" : "92883498feb1f54ad88f3a52a43a2d6d",
+    "sha1" : "7be6da2f9e942294144a52406f8b9b3fdad1a530",
+    "sha256" : "3bc5be5ef559fae6bfb75055ab5eb1f60d5ae01a039f8b12f71490e9ea3af88d",
+    "evidenceCollected" : {
+      "vendorEvidence" : [ ],
+      "productEvidence" : [ ],
+      "versionEvidence" : [ ]
+    }
+  }, {
+    "isVirtual" : false,
+    "fileName" : "datasetUtils.js",
+    "filePath" : "/mnt/c/Users/Emhol/OpenSource/Source/airflow/airflow/www/static/js/datasetUtils.js",
+    "md5" : "ed6cfbc228de7dd772350902e9817b7b",
+    "sha1" : "7b0daf26a939988ab575a8a00bc41b8e79d064c3",
+    "sha256" : "572231e1c85b1dd4d1b942bac082dc32ae0af554f348907a67383472c9b3285f",
+    "evidenceCollected" : {
+      "vendorEvidence" : [ ],
+      "productEvidence" : [ ],
+      "versionEvidence" : [ ]
+    }
+  }, {
+    "isVirtual" : false,
+    "fileName" : "datetime_utils.js",
+    "filePath" : "/mnt/c/Users/Emhol/OpenSource/Source/airflow/airflow/www/static/js/datetime_utils.js",
+    "md5" : "7afa28ff57e3980c308c6f5989dc63ff",
+    "sha1" : "cd2ae7dd625ec486d1b210d0618deaa5ae37b3da",
+    "sha256" : "6417754e0209960014d9d6c5858e448f005a71debcd157b8c0d05772aeb8c9bd",
+    "evidenceCollected" : {
+      "vendorEvidence" : [ ],
+      "productEvidence" : [ ],
+      "versionEvidence" : [ ]
+    }
+  }, {
+    "isVirtual" : false,
+    "fileName" : "duration_chart.js",
+    "filePath" : "/mnt/c/Users/Emhol/OpenSource/Source/airflow/airflow/www/static/js/duration_chart.js",
+    "md5" : "c9e1b7320ef84d215ed48f115ca1bc8e",
+    "sha1" : "8fd742ceb3dc7ae57e9033d52bae7af0d5067614",
+    "sha256" : "462358a221bf50485827d1dd32e562987a8ac736da93511ada3cc471105ba5ba",
+    "evidenceCollected" : {
+      "vendorEvidence" : [ ],
+      "productEvidence" : [ ],
+      "versionEvidence" : [ ]
+    }
+  }, {
+    "isVirtual" : false,
+    "fileName" : "gantt.js",
+    "filePath" : "/mnt/c/Users/Emhol/OpenSource/Source/airflow/airflow/www/static/js/gantt.js",
+    "md5" : "d66ed3b25771216c57a015011e33183d",
+    "sha1" : "5b446a6b3a4e7d39cf9019c9713fe23b1585397a",
+    "sha256" : "f7db1cd46f5a28e62b937d23dd7d1efa2ef2362d023c44eae3982f3030952c79",
+    "evidenceCollected" : {
+      "vendorEvidence" : [ ],
+      "productEvidence" : [ ],
+      "versionEvidence" : [ ]
+    }
+  }, {
+    "isVirtual" : false,
+    "fileName" : "gh-jira-links.js",
+    "filePath" : "/mnt/c/Users/Emhol/OpenSource/Source/airflow/docs/apache-airflow/static/gh-jira-links.js",
+    "md5" : "e72a4d09be027da0b649a87a8f7bfd7d",
+    "sha1" : "6006c924d7b18cc9f51da58500715fd1dd88da20",
+    "sha256" : "b1f239f4c411f15d3621e29a18b0ced3a99b00c81b65f9544ce1b8c7451cd64c",
+    "relatedDependencies" : [ {
+      "isVirtual" : false,
+      "fileName" : "gh-jira-links.js",
+      "filePath" : "/mnt/c/Users/Emhol/OpenSource/Source/airflow/docs/helm-chart/static/gh-jira-links.js",
+      "sha256" : "b1f239f4c411f15d3621e29a18b0ced3a99b00c81b65f9544ce1b8c7451cd64c",
+      "sha1" : "6006c924d7b18cc9f51da58500715fd1dd88da20",
+      "md5" : "e72a4d09be027da0b649a87a8f7bfd7d"
+    } ],
+    "evidenceCollected" : {
+      "vendorEvidence" : [ ],
+      "productEvidence" : [ ],
+      "versionEvidence" : [ ]
+    }
+  }, {
+    "isVirtual" : false,
+    "fileName" : "graph.js",
+    "filePath" : "/mnt/c/Users/Emhol/OpenSource/Source/airflow/airflow/www/static/js/graph.js",
+    "md5" : "20a3c2afdcda996ab079c0f1f041615e",
+    "sha1" : "ec780fd197a3cc8ba360ec1946fed2004c71119e",
+    "sha256" : "ee361e34e178e968a8864f1c8a034ba9aeabd8b8563469e657ab85f6ddfad996",
+    "evidenceCollected" : {
+      "vendorEvidence" : [ ],
+      "productEvidence" : [ ],
+      "versionEvidence" : [ ]
+    }
+  }, {
+    "isVirtual" : false,
+    "fileName" : "jest-setup.js",
+    "filePath" : "/mnt/c/Users/Emhol/OpenSource/Source/airflow/airflow/www/jest-setup.js",
+    "md5" : "3d504d724776fcaae456f034c429f10f",
+    "sha1" : "f0e12c7ed48ec5ee2ac1a0470d90eba24694119c",
+    "sha256" : "53c475e6fdcd79cf547ff2cf29d4c257c9da13793e381e343d9c35f29323d4e0",
+    "evidenceCollected" : {
+      "vendorEvidence" : [ ],
+      "productEvidence" : [ ],
+      "versionEvidence" : [ ]
+    }
+  }, {
+    "isVirtual" : false,
+    "fileName" : "jest.config.js",
+    "filePath" : "/mnt/c/Users/Emhol/OpenSource/Source/airflow/airflow/www/jest.config.js",
+    "md5" : "d9fd9d8f0c9560ecdf48d89181fac044",
+    "sha1" : "b2adf16e08cbc44a7d0ecb40a1a91a64cbc0aad2",
+    "sha256" : "e4a26280e2d6ca3cb0395981a1106064903004ecb21cfb0c843ecfa95ac3d80a",
+    "evidenceCollected" : {
+      "vendorEvidence" : [ ],
+      "productEvidence" : [ ],
+      "versionEvidence" : [ ]
+    }
+  }, {
+    "isVirtual" : false,
+    "fileName" : "main.js",
+    "filePath" : "/mnt/c/Users/Emhol/OpenSource/Source/airflow/airflow/www/static/js/main.js",
+    "md5" : "d965f21bae10a23471fc84a0731d8d13",
+    "sha1" : "3ea73b1d0c55c149e57ca859c956f5e40b78ac50",
+    "sha256" : "42b4bda0265547f6ff17789aa123ba68e19f57921967120be9186a9b99fcc3fe",
+    "evidenceCollected" : {
+      "vendorEvidence" : [ ],
+      "productEvidence" : [ ],
+      "versionEvidence" : [ ]
+    }
+  }, {
+    "isVirtual" : false,
+    "fileName" : "package.json",
+    "filePath" : "/mnt/c/Users/Emhol/OpenSource/Source/airflow/airflow/www/package.json",
+    "md5" : "70bc0cd6915e906a0fc4df534668bf62",
+    "sha1" : "826aae9d338d08b87f1738bfcfdff75eec0adff4",
+    "sha256" : "e7db1ed7ba00c752de17ed1ca039c598e538fd8ff559932df52a1ceab4f9000f",
+    "evidenceCollected" : {
+      "vendorEvidence" : [ ],
+      "productEvidence" : [ ],
+      "versionEvidence" : [ ]
+    }
+  }, {
+    "isVirtual" : false,
+    "fileName" : "task.js",
+    "filePath" : "/mnt/c/Users/Emhol/OpenSource/Source/airflow/airflow/www/static/js/task.js",
+    "md5" : "21994e1f048f8270022732485c355cc7",
+    "sha1" : "322207e0b2a38d620d021826008f86cea20b4545",
+    "sha256" : "faf332c5c424221f80e50fba40b044f6260cdf9df577dd0758b85cba02075393",
+    "evidenceCollected" : {
+      "vendorEvidence" : [ ],
+      "productEvidence" : [ ],
+      "versionEvidence" : [ ]
+    }
+  }, {
+    "isVirtual" : false,
+    "fileName" : "task_instances.js",
+    "filePath" : "/mnt/c/Users/Emhol/OpenSource/Source/airflow/airflow/www/static/js/task_instances.js",
+    "md5" : "5d52fab6f43935f9961f9685d3df9658",
+    "sha1" : "8be14f6bf63f708db0944cc952155e93407449d4",
+    "sha256" : "00aae38267c3097f05ba85c6dca0b94541592abc43c3b02a79e67a5d5b4b8a8d",
+    "evidenceCollected" : {
+      "vendorEvidence" : [ ],
+      "productEvidence" : [ ],
+      "versionEvidence" : [ ]
+    }
+  }, {
+    "isVirtual" : false,
+    "fileName" : "ti_log.js",
+    "filePath" : "/mnt/c/Users/Emhol/OpenSource/Source/airflow/airflow/www/static/js/ti_log.js",
+    "md5" : "7f2038e7fe73617b7013186e05f47be1",
+    "sha1" : "98240712a121e686756da3276c48ebea178bb7e8",
+    "sha256" : "afc6100152f57eb9f03c0e541d039db421ea0489400ea6915977ceb4d5427f1f",
+    "evidenceCollected" : {
+      "vendorEvidence" : [ ],
+      "productEvidence" : [ ],
+      "versionEvidence" : [ ]
+    }
+  }, {
+    "isVirtual" : false,
+    "fileName" : "trigger.js",
+    "filePath" : "/mnt/c/Users/Emhol/OpenSource/Source/airflow/airflow/www/static/js/trigger.js",
+    "md5" : "4b3e341b6b305070c240585f9f2c9c9f",
+    "sha1" : "9a40fbc66d45263b26142d7f13f2b67f4db7fcfe",
+    "sha256" : "0350a6a757aa82275e22164580fd1d8d6502221a1c4ad3818f302c0c015ef0ce",
+    "evidenceCollected" : {
+      "vendorEvidence" : [ ],
+      "productEvidence" : [ ],
+      "versionEvidence" : [ ]
+    }
+  }, {
+    "isVirtual" : false,
+    "fileName" : "variable_edit.js",
+    "filePath" : "/mnt/c/Users/Emhol/OpenSource/Source/airflow/airflow/www/static/js/variable_edit.js",
+    "md5" : "e6d4467136ca61bdcbc1e8e5f584042f",
+    "sha1" : "8d5f70c822905987b65c41edbf812a80a9845d39",
+    "sha256" : "d296d65870c6ae7b5718cdae8210bfa0d22651cc9e62e9794816c05c4bee6a14",
+    "evidenceCollected" : {
+      "vendorEvidence" : [ ],
+      "productEvidence" : [ ],
+      "versionEvidence" : [ ]
+    }
+  }, {
+    "isVirtual" : false,
+    "fileName" : "webpack.config.js",
+    "filePath" : "/mnt/c/Users/Emhol/OpenSource/Source/airflow/airflow/www/webpack.config.js",
+    "md5" : "bc5486661e7c6ae8a674a9ecc2fed6b7",
+    "sha1" : "2a86890f3bd22ac7e1f4ed96ebcc33e016fd6476",
+    "sha256" : "f0640bfe071f07e1cb3cdafd8498eb2d987629b798b2144a97856de16a9cb8b6",
+    "evidenceCollected" : {
+      "vendorEvidence" : [ ],
+      "productEvidence" : [ ],
+      "versionEvidence" : [ ]
+    }
+  }, {
+    "isVirtual" : false,
+    "fileName" : "yarn.lock",
+    "filePath" : "/mnt/c/Users/Emhol/OpenSource/Source/airflow/airflow/www/yarn.lock",
+    "md5" : "042aa8f4662647dc8a06c53de0a17823",
+    "sha1" : "e2e7cadaf7d208847cb7eb3ae2fe6c189223785e",
+    "sha256" : "c4994f23bf1617957b33c8cfbd9625ea4b0347ad92adddb76e5b1b04e0f59c57",
+    "evidenceCollected" : {
+      "vendorEvidence" : [ {
+        "type" : "vendor",
+        "confidence" : "HIGH",
+        "source" : "file",
+        "name" : "name",
+        "value" : "yarn"
+      } ],
+      "productEvidence" : [ {
+        "type" : "product",
+        "confidence" : "HIGH",
+        "source" : "file",
+        "name" : "name",
+        "value" : "yarn"
+      } ],
+      "versionEvidence" : [ ]
+    }
+  } ]
+}

@@ -1,5 +1,8 @@
 package nl.obren.sokrates.sourcecode.analysis.vulnerabilities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties
 public class Cvssv2{
     public double score;
     public String accessVector;
