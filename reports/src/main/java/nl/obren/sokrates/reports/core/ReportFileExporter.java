@@ -74,29 +74,8 @@ public class ReportFileExporter {
         }
     }
 
-    private static String extractTitle(String displayName) {
-        // check if displayName contains HTML tags
-        if (displayName.contains("<div")) {
-            // extract system name from first div
-            String systemName = "";
-            if (displayName.contains("<div")) {
-                systemName = displayName.replaceAll("(?s).*?<div[^>]*>(.*?)</div>.*", "$1").trim();
-            }
-            // extract report name from second div
-            String reportName = "";
-            if (displayName.contains("</div><div")) {
-                reportName = displayName.replaceAll("(?s).*?</div><div[^>]*>(.*?)</div>.*", "$1").trim();
-            }
-            // combine them with a separator
-            String titleText = systemName;
-            if (!systemName.isEmpty() && !reportName.isEmpty()) {
-                titleText += " - " + reportName;
-            }
-            return titleText;
-        } else {
-            // if no HTML tags, return the displayName as is
-            return displayName.trim();
-        }
+    protected static String extractTitle(String displayName) {
+        return displayName.replaceAll("<.*?>", " ").replaceAll("  ", " ").trim();
     }
 
     private static String minimize(String html) {
@@ -426,7 +405,7 @@ public class ReportFileExporter {
         report.endUnorderedList();
         report.endTable();
 
-        boolean showDuplication = !analysisResults.getCodeConfiguration().getAnalysis().isSkipDuplication() && analysisResults.getDuplicationAnalysisResults().getAllDuplicates().size() > 0;
+        boolean showDuplication = !analysisResults.skipDuplicationAnalysis() && analysisResults.getDuplicationAnalysisResults().getAllDuplicates().size() > 0;
         if (showDuplication) {
             report.addParagraph("<a target='_blank' href='Duplication.html'>Duplication</a> views:", "margin-bottom: 0;");
             report.startTable("");
@@ -1117,7 +1096,7 @@ public class ReportFileExporter {
         CodeConfiguration config = analysisResults.getCodeConfiguration();
         boolean mainExists = analysisResults.getMainAspectAnalysisResults().getFilesCount() > 0;
         boolean showHistoryReport = mainExists && config.getFileHistoryAnalysis().filesHistoryImportPathExists(sokratesConfigFolder);
-        boolean showDuplication = mainExists && !config.getAnalysis().isSkipDuplication();
+        boolean showDuplication = mainExists && !analysisResults.skipDuplicationAnalysis();
         boolean showDependencies = mainExists && !config.getAnalysis().isSkipDependencies();
         boolean showTrends = mainExists && config.getTrendAnalysis().getReferenceAnalyses(sokratesConfigFolder).size() > 0;
         boolean showConcerns = mainExists && config.countAllConcernsDefinitions() > 1;

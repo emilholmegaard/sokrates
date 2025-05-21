@@ -17,10 +17,7 @@ import nl.obren.sokrates.reports.core.RichTextReport;
 import nl.obren.sokrates.reports.generators.statichtml.HistoryPerLanguageGenerator;
 import nl.obren.sokrates.reports.landscape.data.LandscapeDataExport;
 import nl.obren.sokrates.reports.landscape.statichtml.repositories.*;
-import nl.obren.sokrates.reports.landscape.utils.ExtractStringListValue;
-import nl.obren.sokrates.reports.landscape.utils.Force3DGraphExporter;
-import nl.obren.sokrates.reports.landscape.utils.LandscapeGeneratorUtils;
-import nl.obren.sokrates.reports.landscape.utils.RacingLanguagesBarChartsExporter;
+import nl.obren.sokrates.reports.landscape.utils.*;
 import nl.obren.sokrates.reports.utils.AnimalIcons;
 import nl.obren.sokrates.reports.utils.DataImageUtils;
 import nl.obren.sokrates.reports.utils.GraphvizDependencyRenderer;
@@ -30,6 +27,7 @@ import nl.obren.sokrates.sourcecode.Metadata;
 import nl.obren.sokrates.sourcecode.analysis.results.CodeAnalysisResults;
 import nl.obren.sokrates.sourcecode.analysis.results.HistoryPerExtension;
 import nl.obren.sokrates.sourcecode.contributors.ContributionTimeSlot;
+import nl.obren.sokrates.sourcecode.contributors.Contributor;
 import nl.obren.sokrates.sourcecode.dependencies.ComponentDependency;
 import nl.obren.sokrates.sourcecode.filehistory.DateUtils;
 import nl.obren.sokrates.sourcecode.githistory.CommitsPerExtension;
@@ -316,7 +314,7 @@ public class LandscapeReportGenerator {
         landscapeReport.addTab(REPOSITORIES_TAB_ID, "Repositories (" + landscapeAnalysisResults.getFilteredRepositoryAnalysisResults().size() + ")", false);
         landscapeReport.addTab(STATS_TAB_ID, "Statistics", false);
 
-        landscapeReport.addTab(TAGS_TAB_ID, "Tags (" + customTagsMap.tagsCount() + ")", false);
+        landscapeReport.addTab(TAGS_TAB_ID, "Tech Stats", false);
         landscapeReport.addTab(CONTRIBUTORS_TAB_ID, "Contributors" + (recentContributorsCount > 0 ? " (" + recentContributorsCount + ")" + "" : ""), false);
         if (teamsConfig.getTeams().size() > 0) {
             landscapeReport.addTab(TEAMS_TAB_ID, "Teams" + (recentContributorsCount > 0 ? " (" + recentTeamsCount + ")" + "" : ""), false);
@@ -343,8 +341,21 @@ public class LandscapeReportGenerator {
 
     private void addTagsTab(List<RepositoryAnalysisResults> repositories) {
         landscapeReport.startTabContentSection(TAGS_TAB_ID, false);
+
+        landscapeReport.addLineBreak();
+        landscapeReport.startSubSection("<a href='repositories-extensions.html' target='_blank' style='text-decoration: none'>" +
+                "File Extension Stats</a>&nbsp;&nbsp;" + OPEN_IN_NEW_TAB_SVG_ICON, "");
+        landscapeReport.startDiv("margin-bottom: 18px;");
+        landscapeReport.addNewTabLink("<b>Open expanded view</b> (stats per sub-folder)&nbsp;" + OPEN_IN_NEW_TAB_SVG_ICON, "repositories-extensions-matrix.html");
+        landscapeReport.endDiv();
+        landscapeReport.addHtmlContent("<iframe src='repositories-extensions.html' frameborder=0 style='height: 600px; width: 100%; margin-bottom: 0px; padding: 0;'></iframe>");
+        landscapeReport.endSection();
+
         ProcessingStopwatch.start("reporting/tags");
+        landscapeReport.addLineBreak();
         addTagsSection(repositories);
+
+
         ProcessingStopwatch.end("reporting/tags");
         landscapeReport.endTabContentSection();
     }
@@ -906,7 +917,43 @@ public class LandscapeReportGenerator {
         landscapeReport.addContentInDiv("1y code activity", "text-align: center; margin-bottom: -7px; margin-top: 2px; margin-left: 4px; color: grey; font-size: 70%;");
         int totalValue = getSumOfValues(overallFileLastModifiedDistribution);
         addActiveCodeBlock(landscapeAnalysisResults, totalValue);
+
         landscapeReport.endDiv();
+    }
+
+    private void addCorrelations() {
+        List<RepositoryAnalysisResults> repositories = landscapeAnalysisResults.getRepositoryAnalysisResults();
+        CorrelationDiagramGenerator<RepositoryAnalysisResults> correlationDiagramGenerator = new CorrelationDiagramGenerator<>(landscapeReport, repositories);
+
+        correlationDiagramGenerator.addCorrelations("Recent Contributors vs. Commits (30 days)", "commits (30d)", "recent contributors (30d)",
+                p -> p.getAnalysisResults().getContributorsAnalysisResults().getCommitsCount30Days(),
+                p -> p.getAnalysisResults().getContributorsAnalysisResults().getContributors().stream().filter(c -> c.isActive(Contributor.RECENTLY_ACTIVITY_THRESHOLD_DAYS)).count(),
+                p -> p.getAnalysisResults().getMetadata().getName());
+
+        correlationDiagramGenerator.addCorrelations("Recent Contributors vs. Repository Main LOC", "main LOC", "recent contributors (30d)",
+                p -> p.getAnalysisResults().getMainAspectAnalysisResults().getLinesOfCode(),
+                p -> p.getAnalysisResults().getContributorsAnalysisResults().getContributors().stream().filter(c -> c.isActive(Contributor.RECENTLY_ACTIVITY_THRESHOLD_DAYS)).count(),
+                p -> p.getAnalysisResults().getMetadata().getName());
+
+        correlationDiagramGenerator.addCorrelations("Recent Commits (30 days) vs. Repository Main LOC", "main LOC", "commits (30d)",
+                p -> p.getAnalysisResults().getMainAspectAnalysisResults().getLinesOfCode(),
+                p -> p.getAnalysisResults().getContributorsAnalysisResults().getCommitsCount30Days(),
+                p -> p.getAnalysisResults().getMetadata().getName());
+
+        correlationDiagramGenerator.addCorrelations("Age in Years vs. Repository Main LOC", "main LOC", "age (years)",
+                p -> p.getAnalysisResults().getMainAspectAnalysisResults().getLinesOfCode(),
+                p -> Math.round(10 * p.getAnalysisResults().getFilesHistoryAnalysisResults().getAgeInDays() / 365.0) / 10,
+                p -> p.getAnalysisResults().getMetadata().getName());
+
+        correlationDiagramGenerator.addCorrelations("Number of Files vs. Repository Main LOC", "main LOC", "# main files",
+                p -> p.getAnalysisResults().getMainAspectAnalysisResults().getLinesOfCode(),
+                p -> p.getAnalysisResults().getMainAspectAnalysisResults().getFilesCount(),
+                p -> p.getAnalysisResults().getMetadata().getName());
+
+        correlationDiagramGenerator.addCorrelations("Duplication vs. Repository Main LOC", "main LOC", "% duplication",
+                p -> p.getAnalysisResults().getMainAspectAnalysisResults().getLinesOfCode(),
+                p -> Math.round(10 * p.getAnalysisResults().getDuplicationAnalysisResults().getOverallDuplication().getDuplicationPercentage().doubleValue()) / 10,
+                p -> p.getAnalysisResults().getMetadata().getName());
     }
 
     private void addActiveCodeBlock(LandscapeAnalysisResults landscapeAnalysisResults, int locAll) {
@@ -1229,20 +1276,18 @@ public class LandscapeReportGenerator {
         addZooSection();
         ProcessingStopwatch.end("reporting/repositories/file age & freshness");
 
-        landscapeReport.startSubSection("<a href='repositories-extensions.html' target='_blank' style='text-decoration: none'>" +
-                "File Extension Stats</a>&nbsp;&nbsp;" + OPEN_IN_NEW_TAB_SVG_ICON, "");
-        landscapeReport.startDiv("margin-bottom: 18px;");
-        landscapeReport.addNewTabLink("<b>Open expanded view</b> (stats per sub-folder)&nbsp;" + OPEN_IN_NEW_TAB_SVG_ICON, "repositories-extensions-matrix.html");
-        landscapeReport.endDiv();
-        landscapeReport.addHtmlContent("<iframe src='repositories-extensions.html' frameborder=0 style='height: 600px; width: 100%; margin-bottom: 0px; padding: 0;'></iframe>");
+        landscapeReport.startSubSection("Correlations", "");
+        addCorrelations();
         landscapeReport.endSection();
 
     }
 
     private void addTagsSection(List<RepositoryAnalysisResults> repositoryAnalysisResults) {
+        landscapeReport.startSubSection("Custom Tags (" + customTagsMap.tagsCount() + ")", "");
+
         if (repositoryAnalysisResults.size() > 0) {
-            landscapeReport.startDiv("margin-top: 14px;");
-            landscapeReport.addNewTabLink("<b>Open in a new tab&nbsp;" + OPEN_IN_NEW_TAB_SVG_ICON, "repositories-tags.html");
+            landscapeReport.startDiv("margin-top: 14px; max-height: 400px");
+            landscapeReport.addNewTabLink("<b>Open in a new tab</b>&nbsp;" + OPEN_IN_NEW_TAB_SVG_ICON, "repositories-tags.html");
             landscapeReport.addHtmlContent("&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;");
             landscapeReport.addNewTabLink("<b>Open expanded view</b> (stats per sub-folder)&nbsp;" + OPEN_IN_NEW_TAB_SVG_ICON, "repositories-tags-matrix.html");
             landscapeReport.endDiv();
@@ -1273,6 +1318,8 @@ public class LandscapeReportGenerator {
 
         landscapeReport.addLineBreak();
         landscapeReport.addHtmlContent("<iframe src='repositories-tags.html' frameborder=0 style='height: calc(100vh - 290px); width: 100%; margin-bottom: 0px; padding: 0;'></iframe>");
+
+        landscapeReport.endSection();
     }
 
     private List<TagGroup> getExtensionTagGroups() {

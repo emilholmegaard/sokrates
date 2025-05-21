@@ -15,7 +15,6 @@ import nl.obren.sokrates.reports.landscape.utils.CorrelationDiagramGenerator;
 import nl.obren.sokrates.reports.landscape.utils.Counter;
 import nl.obren.sokrates.reports.landscape.utils.FeaturesOfInterestAggregator;
 import nl.obren.sokrates.reports.landscape.utils.RepositoryConcernData;
-import nl.obren.sokrates.reports.utils.AnimalIcons;
 import nl.obren.sokrates.reports.utils.DataImageUtils;
 import nl.obren.sokrates.sourcecode.Metadata;
 import nl.obren.sokrates.sourcecode.analysis.results.AspectAnalysisResults;
@@ -24,6 +23,7 @@ import nl.obren.sokrates.sourcecode.analysis.results.ContributorsAnalysisResults
 import nl.obren.sokrates.sourcecode.analysis.results.FilesHistoryAnalysisResults;
 import nl.obren.sokrates.sourcecode.contributors.ContributionTimeSlot;
 import nl.obren.sokrates.sourcecode.contributors.Contributor;
+import nl.obren.sokrates.sourcecode.core.CodeConfiguration;
 import nl.obren.sokrates.sourcecode.filehistory.DateUtils;
 import nl.obren.sokrates.sourcecode.landscape.RepositoryTag;
 import nl.obren.sokrates.sourcecode.landscape.TagGroup;
@@ -235,31 +235,6 @@ public class LandscapeRepositoriesReport {
                         - (int) a.getAnalysisResults().getContributorsAnalysisResults().getContributors().stream().filter(c -> c.isActive(LandscapeReportGenerator.RECENT_THRESHOLD_DAYS)).count());
         addSummaryGraphContributors(report, repositoryAnalysisResults);
         addCommitsTrend(report, repositoryAnalysisResults, "Contributors", "darkred", (slot) -> slot.getContributorsCount());
-        report.endTabContentSection();
-        report.startTabContentSection("correlations", false);
-
-        CorrelationDiagramGenerator<RepositoryAnalysisResults> correlationDiagramGenerator = new CorrelationDiagramGenerator<>(report, repositoryAnalysisResults);
-
-        correlationDiagramGenerator.addCorrelations("Recent Contributors vs. Commits (30 days)", "commits (30d)", "recent contributors (30d)",
-                p -> p.getAnalysisResults().getContributorsAnalysisResults().getCommitsCount30Days(),
-                p -> p.getAnalysisResults().getContributorsAnalysisResults().getContributors().stream().filter(c -> c.isActive(Contributor.RECENTLY_ACTIVITY_THRESHOLD_DAYS)).count(),
-                p -> p.getAnalysisResults().getMetadata().getName());
-
-        correlationDiagramGenerator.addCorrelations("Recent Contributors vs. Repository Main LOC", "main LOC", "recent contributors (30d)",
-                p -> p.getAnalysisResults().getMainAspectAnalysisResults().getLinesOfCode(),
-                p -> p.getAnalysisResults().getContributorsAnalysisResults().getContributors().stream().filter(c -> c.isActive(Contributor.RECENTLY_ACTIVITY_THRESHOLD_DAYS)).count(),
-                p -> p.getAnalysisResults().getMetadata().getName());
-
-        correlationDiagramGenerator.addCorrelations("Recent Commits (30 days) vs. Repository Main LOC", "main LOC", "commits (30d)",
-                p -> p.getAnalysisResults().getMainAspectAnalysisResults().getLinesOfCode(),
-                p -> p.getAnalysisResults().getContributorsAnalysisResults().getCommitsCount30Days(),
-                p -> p.getAnalysisResults().getMetadata().getName());
-
-        correlationDiagramGenerator.addCorrelations("Age in Years vs. Repository Main LOC", "main LOC", "age (years)",
-                p -> p.getAnalysisResults().getMainAspectAnalysisResults().getLinesOfCode(),
-                p -> Math.round(10 * p.getAnalysisResults().getFilesHistoryAnalysisResults().getAgeInDays() / 365.0) / 10,
-                p -> p.getAnalysisResults().getMetadata().getName());
-
         report.endTabContentSection();
     }
 
@@ -620,7 +595,7 @@ public class LandscapeRepositoriesReport {
                     "overflow: hidden; white-space: nowrap; vertical-align: middle; max-width: 400px");
 
             report.addTableCell("<a href='" + this.getDuplicationReportUrl(repositoryAnalysis) + "' target='_blank'>" +
-                    getDuplicationVisual(repositoryAnalysisResults.getDuplicationAnalysisResults().getOverallDuplication().getDuplicationPercentage()) +
+                    getDuplicationVisual(repositoryAnalysisResults.skipDuplicationAnalysis(), repositoryAnalysisResults.getDuplicationAnalysisResults().getOverallDuplication().getDuplicationPercentage()) +
                     "</a>", "text-align: center");
             report.addTableCell("<a href='" + this.getFileSizeReportUrl(repositoryAnalysis) + "' target='_blank'>" +
                     getRiskProfileVisual(repositoryAnalysisResults.getFilesAnalysisResults().getOverallFileSizeDistribution(), Palette.getRiskPalette()) +
@@ -775,8 +750,8 @@ public class LandscapeRepositoriesReport {
         return name;
     }
 
-    private String getDuplicationVisual(Number duplicationPercentage) {
-        if (duplicationPercentage.doubleValue() == 0) {
+    private String getDuplicationVisual(boolean skipDuplication, Number duplicationPercentage) {
+        if (skipDuplication) {
             return "<span style='color: grey; font-size: 70%'>not measured</span>";
         }
         SimpleOneBarChart chart = new SimpleOneBarChart();
